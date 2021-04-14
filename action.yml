@@ -10,8 +10,15 @@ inputs:
   destination-repository-name:
     description: 'Destination repository'
     required: true
+  destination-repository-folder:
+    description: "[Optional] Path to the folder of the destination repository the files should be committed"
+    required: false
+    default: "/"
   user-email:
     description: 'Email for the git commit'
+    required: true
+  user-name:
+    description: "Sets: git config --global user.name"
     required: true
   destination-repository-username:
     description: '[Optional] Username/organization for the destination repository'
@@ -22,20 +29,22 @@ inputs:
     default: 'master'
     required: false
   commit-message:
-    description: '[Optional] commit message for the output repository. ORIGIN_COMMIT is replaced by the URL@commit in the origin repo'
-    default: 'Update from ORIGIN_COMMIT'
+    description: "[Optional] commit message for the output repository. DEFAULT: Updated $DESTINATION_GITHUB_REPOSITORY_NAME from $GITHUB_REPOSITORY with user $USER_EMAIL"
     required: false
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.source-directory }}
-    - ${{ inputs.destination-github-username }}
-    - ${{ inputs.destination-repository-name }}
-    - ${{ inputs.user-email }}
-    - ${{ inputs.destination-repository-username }}
-    - ${{ inputs.target-branch }}
-    - ${{ inputs.commit-message }}
+  using: "composite"
+  steps:
+    - run: ${{ github.action_path }}/entrypoint.sh
+      shell: bash
+      env:
+        SOURCE_DIRECTORY: ${{ inputs.source-directory }}
+        DESTINATION_GITHUB_REPOSITORY_USERNAME: ${{ inputs.destination-github-repository-username }}
+        DESTINATION_GITHUB_REPOSITORY_NAME: ${{ inputs.destination-github-repository-name }}
+        DESTINATION_REPOSITORY_FOLDER: ${{ inputs.destination-repository-folder }}
+        USER_EMAIL: ${{ inputs.user-email }}
+        USER_NAME: ${{ inputs.user-name }}
+        TARGET_BRANCH: ${{ inputs.target-branch }}
+        COMMIT_MESSAGE: ${{ inputs.commit-message }}
 branding:
   icon: 'git-commit'
   color: 'green'

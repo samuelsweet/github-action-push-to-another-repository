@@ -39,7 +39,7 @@ runs:
       env:
         SOURCE_DIRECTORY: ${{ inputs.source-directory }}
         DESTINATION_REPOSITORY_USERNAME: ${{ inputs.destination-github-username }}
-        DESTINATION_GITHUB_REPOSITORY_NAME: ${{ inputs.destination-github-repository-name }}
+        DESTINATION_REPOSITORY_NAME: ${{ inputs.destination-repository-name }}
         DESTINATION_REPOSITORY_FOLDER: ${{ inputs.destination-repository-folder }}
         USER_EMAIL: ${{ inputs.user-email }}
         USER_NAME: ${{ inputs.destination-github-username }}

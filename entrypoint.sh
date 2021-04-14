@@ -16,7 +16,7 @@ git clone --single-branch --branch "$TARGET_BRANCH" "https://$API_TOKEN_GITHUB@g
 ls -la "$CLONE_DIR"
 
 echo "Create destination repository folder if not existent"
-mkdir -p "$CLONE_DIR"/"$DESTINATION_REPOSITORY_FOLDER"
+mkdir -p "$CLONE_DIR"/"$DESTINATION_REPOSITORY_FOLDER/dist/assets"
 
 echo "Delete destination files to handle deletions"
 rm -rf "${CLONE_DIR:?}/$DESTINATION_REPOSITORY_FOLDER/*"

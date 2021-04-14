@@ -17,9 +17,9 @@ inputs:
   user-email:
     description: 'Email for the git commit'
     required: true
-  user-name:
-    description: "Sets: git config --global user.name"
-    required: true
+  # user-name:
+  #   description: "Sets: git config --global user.name"
+  #   required: true
   destination-repository-username:
     description: '[Optional] Username/organization for the destination repository'
     required: false
@@ -38,10 +38,11 @@ runs:
       shell: bash
       env:
         SOURCE_DIRECTORY: ${{ inputs.source-directory }}
+        DESTINATION_REPOSITORY_USERNAME: ${{ inputs.destination-github-username }}
         DESTINATION_GITHUB_REPOSITORY_NAME: ${{ inputs.destination-github-repository-name }}
         DESTINATION_REPOSITORY_FOLDER: ${{ inputs.destination-repository-folder }}
         USER_EMAIL: ${{ inputs.user-email }}
-        USER_NAME: ${{ inputs.user-name }}
+        USER_NAME: ${{ inputs.destination-github-username }}
         TARGET_BRANCH: ${{ inputs.target-branch }}
         COMMIT_MESSAGE: ${{ inputs.commit-message }}
 branding:
